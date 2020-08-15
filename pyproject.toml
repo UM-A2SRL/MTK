@@ -1,4 +1,4 @@
 [build-system]
 requires = ["setuptools", "wheel", "numpy", "Cython",
-            "-e git+git@github.com:bbahiam/eigency.git@patch-1#egg=eigency",
+            "eigency @ git+https://github.com/bbahiam/eigency.git@patch-1#egg=eigency",
            ]
