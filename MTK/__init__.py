@@ -23,13 +23,6 @@ from pkg_resources import resource_filename
 import os.path
 
 
-def GetPackageDirectory():
-    """Returns the include path for MTK.
-    """
-    return os.path.dirname(__file__)
-
-
-def GetIncludeDirectory():
-    """Returns the include path for MTK.
-    """
-    return GetPackageDirectory() + "/include"
+def get_include():
+    """ Returns the include path for MTK.  """
+    return os.path.dirname(__file__)+"/include"
