@@ -29,7 +29,6 @@ from setuptools.extension import Extension
 from Cython.Build import cythonize
 
 
-
 # Convert from local to absolute directories
 #-------------------------------------------
 def GlobalDirectory(files):
@@ -57,19 +56,14 @@ def ReadConfigFile(fname):
     return list
 
 
-inc_dirs = []
-
-
 # find the eigen root directory and add it to the include path
-inc_dirs = ReadConfigFile("Includes.config")
+inc_dirs = [os.environ['EIGEN3_ROOT']]
 
 # Relative paths for the include/library directories
 rel_inc_dirs = ['MTK/include/']
 
-
 # Convert from relative to absolute directories
 inc_dirs.extend(GlobalDirectory(rel_inc_dirs))
-
 
 exts = [Extension('MTK.MTK', sources=['MTK/MTK.pyx'],
             include_dirs=inc_dirs + eigency.get_includes())
