@@ -57,7 +57,19 @@ def ReadConfigFile(fname):
 
 
 # find the eigen root directory and add it to the include path
-inc_dirs = [os.environ['EIGEN3_ROOT']]
+try:
+    inc_dirs = [os.environ['EIGEN3_ROOT']]
+except KeyError:
+    print("""
+    It looks like you don't have Eigen installed in your system.
+    Please clone it with
+        git clone --branch 3.3.4 --depth 1 https://github.com/eigenteam/eigen-git-mirror.git
+    And set an environment variable pointing to it
+        export EIGEN3_ROOT=$PWD/eigen-git-mirror
+    Consider adding that variable to your .bashrc, e.g. with
+        echo "export EIGEN3_ROOT=$PWD/eigen-git-mirror" >> ~/.bashrc
+    """)
+    raise
 
 # Relative paths for the include/library directories
 rel_inc_dirs = ['MTK/include/']
@@ -81,5 +93,6 @@ setup(name='modaltoolkit',
     packages = find_packages(),
     package_data = {"MTK": ['*.pxd','include/*']},
     ext_modules=cythonize(exts),
+    setup_requires=['setuptools','numpy','eigency','Cython'],
     install_requires = ['numpy','h5py','eigency','sphinx', 'matplotlib']
     )
